@@ -1,41 +1,36 @@
+# Todo-приложение на Django
 
+Учебное веб-приложение для личного списка задач. Пользователь может зарегистрироваться, войти в аккаунт, добавить задачу, изменить её название и удалить её. На странице показываются задачи текущего пользователя.
 
-# Multi User Todo Application using Django
+Это форк проекта [Ayushsav/Todo_app_using_django](https://github.com/Ayushsav/Todo_app_using_django). Автор исходного проекта — Ayush Savner.
 
-![Project Image](https://raw.githubusercontent.com/Ayushsav/Todo_app_using_django/c49a051ea6dee5429ea6e2e7a05a2f0299ab1ec7/todo/todo/static/js/Screenshot%20(24).png)
+![Страница со списком задач](todo/todo/static/js/Screenshot%20%2824%29.png)
 
-## Description
-This project is a multi-user todo application built using Django. It allows users to create, manage, and track their tasks in a collaborative environment. 
+## Запуск на Windows
 
-## Features
-- User registration and authentication
-- Create, edit, and delete tasks
-- Assign tasks to specific users
-- Mark tasks as completed
-- Filter tasks based on status, priority, etc.
+Нужен Python. Команды выполняются из терминала:
 
+```powershell
+git clone https://github.com/Felorez/Todo_app_using_django.git
+cd Todo_app_using_django/todo
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+python -m pip install "Django>=4.2,<5"
+python manage.py migrate
+python manage.py runserver
+```
 
-## Installation
-1. Clone the repository: `git clone https://github.com/Ayushsav/Todo_app_using_django.git`
-2. Navigate to the project directory: `cd todo`
-3. Install dependencies: `pip install django`
-4. Set up the database: `python manage.py makemigrations`and `python manage.py migrate`
-5. Create a superuser for admin access: `python manage.py createsuperuser`
-6. Start the development server: `python manage.py runserver`
+Откройте [страницу регистрации](http://127.0.0.1:8000/signup/) или [страницу входа](http://127.0.0.1:8000/loginn/). Административная панель доступна по адресу `/admin/`; для неё отдельно создаётся суперпользователь командой `python manage.py createsuperuser`.
 
-## Usage
-1. Access the application through your browser at `http://localhost:8000/`
-2. Register as a new user or log in with an existing account
-3. Add and manage your todo tasks
-4. Collaborate with other users by assigning tasks to them
+Локально проект проверен с Python 3.12 и Django 4.2.30: проверка Django прошла без ошибок, миграции применились, страницы регистрации и входа открылись, а после входа загрузилась страница задач.
 
-## Contributing
-If you'd like to contribute to this project, follow these steps:
-1. Fork the repository
-2. Create a new branch: `git checkout -b feature/your-feature`
-3. Make your changes and commit them: `git commit -m 'Add some feature'`
-4. Push to the branch: `git push origin feature/your-feature`
-5. Submit a pull request
+## Что есть в проекте
 
+- Регистрация и вход через стандартную систему пользователей Django.
+- Добавление, редактирование и удаление задач.
+- Отображение задач, связанных с текущим пользователем, в порядке от новых к старым.
+- SQLite для локального хранения данных.
 
+## Важно
 
+Это учебный прототип для локального запуска. Перед публикацией сайта в интернете нужно убрать `DEBUG=True` и ключ из `settings.py`, прекратить вывод паролей в журнал и ограничить редактирование и удаление задач их владельцем.
