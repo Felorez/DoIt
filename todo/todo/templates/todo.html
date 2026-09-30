@@ -23,7 +23,7 @@
         <div class="profile-chip"><span class="avatar">{{ user.username|slice:':1' }}</span><span>{{ user.username }}</span></div>
       </header>
       <section aria-labelledby="tasks-title">
-        <div class="section-heading"><div><h2 id="tasks-title">Список дел</h2><p>Добавляйте задачи и возвращайтесь к ним в удобное время.</p></div><span class="count-pill">{{ res|length }} задач</span></div>
+        <div class="section-heading"><div><h2 id="tasks-title">Список дел</h2><p>Добавляйте задачи и возвращайтесь к ним в удобное время.</p></div><span class="count-pill">Задач: {{ res|length }}</span></div>
         <form class="composer" method="post">
           {% csrf_token %}
           <input class="form-input" type="text" name="title" maxlength="25" required aria-label="Новая задача" placeholder="Что нужно сделать?">
