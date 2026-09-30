@@ -1,4 +1,4 @@
-# Делай. — список задач на Django
+# DoIt — список задач на Django
 
 Небольшое учебное приложение для личных задач. Можно зарегистрироваться, войти, добавить, изменить и удалить задачу. Задачи каждого пользователя отображаются в его списке.
 
@@ -13,8 +13,8 @@
 Нужен Python. Выполните в терминале:
 
 ```powershell
-git clone https://github.com/Felorez/Todo_app_using_django.git
-cd Todo_app_using_django/todo
+git clone https://github.com/Felorez/DoIt.git
+cd DoIt/todo
 python -m venv .venv
 .venv\Scripts\Activate.ps1
 python -m pip install "Django>=4.2,<5"
