@@ -1,55 +1,35 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
-
+<html lang="ru">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="initial-scale=1, width=device-width" />
-  <link rel="stylesheet" href="{% static 'css/index.css' %}" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Font Awesome 5 Brands:wght@400&display=swap" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Вход — Делай.</title>
+  <link rel="stylesheet" href="{% static 'css/modern.css' %}">
 </head>
-
-<body>
-  <div class="signup-login">
-    <div class="signup-box1">
-
+<body class="auth-page">
+  <main class="auth-shell">
+    <section class="auth-story" aria-label="О приложении">
+      <a class="brand" href="/loginn/"><span class="brand-mark">✓</span> Делай.</a>
+      <div class="auth-story-content">
+        <p class="eyebrow">Пространство для планов</p>
+        <h1>Больше ясности.<br>Меньше суеты.</h1>
+        <p>Соберите дела в одном месте и возвращайтесь к тому, что действительно важно сегодня.</p>
+      </div>
+      <div class="auth-story-footer"><span>✓</span> Один спокойный шаг за другим</div>
+    </section>
+    <section class="auth-panel">
+      <p class="eyebrow">С возвращением</p>
+      <h2>Войти в аккаунт</h2>
+      <p class="auth-lead">Продолжайте с того места, где остановились.</p>
       <form method="post">
         {% csrf_token %}
-        <div class="heading">
-          Login
-        </div>
-        <div class="line"></div>
-        
-
-        <div class="field">
-          <b>Username</b>
-
-          <input class="inp" type="text" name="fnm" required placeholder="Enter Your Username">
-        </div>
-
-        <div class="field">
-          <b>Password</b>
-
-          <input class="inp" type="password" name="pwd" required placeholder="Enter Password">
-        </div>
-
-        <div class="field">
-          <input class="submit-button" type="submit" value="Login">
-        </div>
-        <div class="line"></div>
-        <div class="field">
-          <b style="margin-left:130px;">Don't have an account? </b>
-          <br>
-          <a class="anc" href="/signup">Signup</a>
-        </div>
-
+        <label class="form-field"><span>Имя пользователя</span><input class="form-input" type="text" name="fnm" autocomplete="username" required placeholder="Ваш логин"></label>
+        <label class="form-field"><span>Пароль</span><input class="form-input" type="password" name="pwd" autocomplete="current-password" required placeholder="Введите пароль"></label>
+        <button class="primary-button" type="submit">Войти <span aria-hidden="true">→</span></button>
       </form>
-    </div>
-
-
-
-  </div>
+      <p class="auth-switch">Ещё нет аккаунта? <a href="/signup/">Зарегистрироваться</a></p>
+    </section>
+  </main>
 </body>
-
 </html>

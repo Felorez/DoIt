@@ -1,57 +1,32 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Font Awesome 5 Brands:wght@400&display=swap" />
-    <script src="https://kit.fontawesome.com/cb792c0850.js" crossorigin="anonymous"></script>
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Изменить задачу — Делай.</title>
+  <link rel="stylesheet" href="{% static 'css/modern.css' %}">
 </head>
-
-<body>
-    
-    <div class="signup-login">
-        <div class=" signup-box scr">
-            <div class="heading">Get Things Done?</div>
-            <form method="post">
-                {% csrf_token %}
-                <input type="text" name="title" required class="todo-input inp" placeholder="What is the task today?" value={{obj.title}}>
-                <input type="hidden" name="srno" value={{obj.srno}}>
-                
-                <input class="submit-button" type="submit" value="Update Task">
-
-            </form>
-
-            {% for todo in res %}
-            <div class="Todo clickable-div {% if todo.status %}todo-green{% else %}todo-red{% endif %}" >
-                <h5>{{todo.srno}}</h5>
-                <p>{{todo.title}}</p>
-            
-
-
-
-                <div>
-                    <a href=""><i class="fa-solid fa-pen-to-square"></i></a>
-                    <a href=" /delete_todo/{{todo.srno}} "><i class="fa-solid fa-trash"></i></a>
-
-                    </i>
-                </div>
-            </div>
-
-
-            {% endfor %}
-        </div>
-
-
-    </div>
-    <script src="{% static 'js/todo.js' %}"></script>
+<body class="dashboard-page">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="/todopage"><span class="brand-mark">✓</span> Делай.</a>
+      <p class="sidebar-label">Рабочее пространство</p>
+      <a class="nav-link active" href="/todopage"><span class="nav-icon" aria-hidden="true">▦</span> Мои задачи</a>
+      <div class="sidebar-spacer"></div>
+      <div class="sidebar-note"><strong>Один шаг за другим</strong><p>Меняйте планы, когда это нужно. Ваш список всегда под рукой.</p></div>
+      <a class="nav-link signout" href="{% url 'signout' %}"><span class="nav-icon" aria-hidden="true">↗</span> Выйти</a>
+    </aside>
+    <main class="main-content">
+      <header class="topbar"><div><p class="eyebrow">Моё пространство</p><h1>Изменить задачу</h1><p>Уточните формулировку и сохраните изменения.</p></div><div class="profile-chip"><span class="avatar">{{ user.username|slice:':1' }}</span><span>{{ user.username }}</span></div></header>
+      <section class="edit-card" aria-label="Редактирование задачи">
+        <form method="post">
+          {% csrf_token %}
+          <label class="form-field"><span>Название задачи</span><input class="form-input" type="text" name="title" maxlength="25" required value="{{ obj.title }}"></label>
+          <div class="edit-actions"><button class="primary-button" type="submit">Сохранить изменения</button><a class="text-link" href="/todopage">Отмена</a></div>
+        </form>
+      </section>
+    </main>
+  </div>
 </body>
-
 </html>

@@ -1,74 +1,49 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Font Awesome 5 Brands:wght@400&display=swap" />
-    <script src="https://kit.fontawesome.com/cb792c0850.js" crossorigin="anonymous"></script>
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Мои задачи — Делай.</title>
+  <link rel="stylesheet" href="{% static 'css/modern.css' %}">
 </head>
-
-<body>
-    <div class="signup-login">
-        <div>
-            <div>
-                <h1>Hello {{user}}</h1>
-            </div>
-            <div class=" signup-box scr">
-                <div class="heads">
-                    <!-- <div class="ancaa" title=""><i class="fa-solid fa-user"></i> </div> -->
-                    <div class="heading">Get Things Done? </div>
-                    <div class="anca"><a href="{% url 'signout' %}" class="sign"><i
-                                class="fa-solid fa-right-from-bracket"></i></a></div>
-                </div>
-
-
-                <form method="post">
-                    {% csrf_token %}
-                    <input type="text" name="title" required class="todo-input inp"
-                        placeholder="What is the task today?">
-
-
-                    <input class="submit-button" type="submit" value="Add Task">
-
-                </form>
-
-                {% for todo in res %}
-                <div class="Todo clickable-div {% if todo.status %}todo-green{% else %}todo-red{% endif %}">
-                    <form method="post" action="">
-                        {% csrf_token %}
-
-                        <!-- <h5><input name="status"required type="submit" {% if todo.status %} checked {% endif %}></h5> -->
-                    </form>
-
-                    <p class="{% if todo.status %} completed {% endif %} ">{{todo.title}}</p>
-
-
-
-
-                    <div>
-                        <a href=" /edit_todo/{{todo.srno}} "><i class="fa-solid fa-pen-to-square"></i></a>
-                        <a href=" /delete_todo/{{todo.srno}} "><i class="fa-solid fa-trash"></i></a>
-
-                        </i>
-                    </div>
-                </div>
-
-
-                {% endfor %}
-            </div>
-
-
+<body class="dashboard-page">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="/todopage"><span class="brand-mark">✓</span> Делай.</a>
+      <p class="sidebar-label">Рабочее пространство</p>
+      <a class="nav-link active" href="/todopage" aria-current="page"><span class="nav-icon" aria-hidden="true">▦</span> Мои задачи</a>
+      <div class="sidebar-spacer"></div>
+      <div class="sidebar-note"><strong>Планируйте спокойно</strong><p>Выпишите все дела, а затем двигайтесь по одному шагу.</p></div>
+      <a class="nav-link signout" href="{% url 'signout' %}"><span class="nav-icon" aria-hidden="true">↗</span> Выйти</a>
+    </aside>
+    <main class="main-content">
+      <header class="topbar">
+        <div><p class="eyebrow">Моё пространство</p><h1>Ваши задачи</h1><p>Хороший день начинается с ясного плана.</p></div>
+        <div class="profile-chip"><span class="avatar">{{ user.username|slice:':1' }}</span><span>{{ user.username }}</span></div>
+      </header>
+      <section aria-labelledby="tasks-title">
+        <div class="section-heading"><div><h2 id="tasks-title">Список дел</h2><p>Добавляйте задачи и возвращайтесь к ним в удобное время.</p></div><span class="count-pill">{{ res|length }} задач</span></div>
+        <form class="composer" method="post">
+          {% csrf_token %}
+          <input class="form-input" type="text" name="title" maxlength="25" required aria-label="Новая задача" placeholder="Что нужно сделать?">
+          <button class="primary-button" type="submit">Добавить <span aria-hidden="true">＋</span></button>
+        </form>
+        {% if res %}
+        <div class="task-list">
+          {% for todo in res %}
+          <article class="task-card{% if todo.status %} is-complete{% endif %}">
+            <span class="task-symbol" aria-hidden="true">✓</span>
+            <div class="task-details"><p class="task-title">{{ todo.title }}</p><p class="task-meta">{{ todo.date|date:'d.m.Y' }} <span class="status-dot"></span> {% if todo.status %}Готово{% else %}В списке{% endif %}</p></div>
+            <div class="task-actions"><a class="action-link" href="/edit_todo/{{ todo.srno }}" aria-label="Изменить задачу {{ todo.title }}">Изменить</a><a class="action-link danger" href="/delete_todo/{{ todo.srno }}" onclick="return confirm('Удалить эту задачу?')" aria-label="Удалить задачу {{ todo.title }}">Удалить</a></div>
+          </article>
+          {% endfor %}
         </div>
-    </div>
-    <script src="{% static 'js/todo.js' %}"></script>
+        {% else %}
+        <div class="empty-state"><span class="empty-state-icon" aria-hidden="true">✦</span><h3>Здесь пока чистый лист</h3><p>Добавьте первую задачу, чтобы начать.</p></div>
+        {% endif %}
+      </section>
+    </main>
+  </div>
 </body>
-
 </html>
